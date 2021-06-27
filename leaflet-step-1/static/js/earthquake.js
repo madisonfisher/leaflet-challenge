@@ -14,8 +14,20 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 
 var url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
 
-d3.json(url).then(function (response) {
-
-    console.log(response);
-
-});
+d3.json(url).then(function(data) {
+    // Once we get a response, send the data.features object to the createFeatures function
+    createFeatures(data.features);
+  });
+  
+  function createFeatures(data) {
+      console.log(data);
+      data.forEach(data => {
+        var coords = "[" + data.geometry.coordinates[0] + "," + data.geometry.coordinates[1] + "]";
+        console.log(coords);
+        var depth = data.geometry.coordinates[2];
+        console.log(depth);
+        var mag = data.properties.mag;
+        console.log(mag);
+      });
+      
+    };
